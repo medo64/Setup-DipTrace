@@ -1,0 +1,151 @@
+Board design principles
+-----------------------
+
+BOARD SIZES
+
+   Board sizes are selected based on Phoenix's UMK board series. Board
+   height is always 72.0 millimeters. Width is selected from 20.0, 42.5,
+   65.0, or any other multiple of 22.5 millimeters (starting at 20.0).
+
+   o 20.0 x 72.0 mm 1440 mm2) / 0.79 x 2.83 in (2.23 in2)
+      - Outer size (mm)        : 16.80 x 66.00
+      - Outer rectangle (mm)   : 1.60, 69.00; 18.40, 3.00
+      - Internal size (mm)     : 15.24 x 63.50
+      - Internal rectangle (mm): 2.38, 67.75; 17.62, 4.25
+      - Internal offset (mm)   : 3.65, 5.52
+      - Via count              : 6 x 25 (150)
+
+   o 42.5 x 72.0 mm (2060 mm2) / 1.67 x 2.83 in (4.74 in2)
+
+      - Outer size (mm)        : 39.30 x 66.00
+      - Outer rectangle (mm)   : 1.60, 69.00; 40.90, 3.00
+      - Internal size (mm)     : 38.10 x 63.50
+      - Internal rectangle (mm): 2.20, 67.75; 40.30, 4.25
+      - Internal offset (mm)   : 3.47, 5.52
+      - Via count              : 15 x 25 (375)
+
+   o 65.0 x 72.0 mm (4060 mm2) / 2.56 x 2.83 in (7.25 in2)
+      - Outer size (mm)        : 61.80 x 66.00
+      - Outer rectangle (mm)   : 1.60, 69.00; 63.40, 3.00
+      - Internal size (mm)     : 60.96 x 63.50
+      - Internal rectangle (mm): 2.20, 67.75; 62.80, 4.25
+      - Internal offset (mm)   : 3.29, 5.52
+      - Via count              : 24 x 25 (600)
+
+
+BOARD LAYOUT
+
+   Inputs jacks are preferred to be on left side and outputs should
+   gravitate towards right. Up and down should be cleared of all jacks
+   that could go over border.
+
+   Jacks that are horizontally mounted should go over right or left edge
+   by 1.25 millimeters (border size of UMK-SE 11.25 enclosure element).
+
+
+TRACES
+
+   Default trace width is 30 mil. That should withstand aproximately
+   500mA of current (as per IPC-2221A, internal traces, 1/2 oz) with
+   10°C temperature increase.
+
+   Standard values are defined in following table. Width and clearance
+   are given in mils and current is given in milliampers.
+
+      Width  Clear  Current
+         10     10      250
+         15     15      350
+         20     15      400
+         30     15      500
+         40     20      650
+         50     20      750
+         75     30     1000
+        100     30     1300
+
+
+HOLES AND PADS
+
+   o MinimumHoleDiameter   
+      - RoundToEven(ComponentLeadDiameter + 0.16 mm) -or-                    //0.16 is plating (PTH)
+      - RoundToEven(RecommendedHoleDiameter)
+
+   o MinimumPadDiameter
+      - HoleDiamerer * 1.9 => nearest 15thou -or-
+      - HoleDiamerer * 1.9 => nearest 10thou -or-
+      - HoleDiamerer * 1.8 => nearest 10thou -or-
+      - HoleDiamerer + 0.5mm => nearest 10thou 
+   
+   o Standard hole/pad size:
+      0.6 mm /  45 mil (1,143 mm)
+      0.8 mm /  60 mil (1,524 mm)
+      1,0 mm /  75 mil (1,905 mm)
+      1.2 mm /  90 mil
+      1.4 mm / 105 mil
+      1.6 mm / 120 mil
+      1.8 mm / 135 mil
+      2.0 mm / 150 mil
+      2.2 mm / 165 mil
+      2.4 mm / 180 mil
+      2.6 mm / 195 mil
+      2.8 mm / 210 mil
+      3.0 mm / 225 mil
+      3.2 mm / 240 mil
+      3.4 mm / 255 mil
+
+
+POWER INTERFACE
+
+   Boards with serial connection should use 12V as input. USB based
+   boards should take 5V from USB if current required is below 500mA. If
+   higher voltage or current is needed, separate power input should be
+   provided via independent power source at 12V (preffered).
+
+
+SERIAL DATA INTERFACE
+
+   Physical layes
+
+      Only three wires should be used: RXD, TXD and GND. Use of other
+      lines is not encouraged. In case of USB based communication, same
+      lines should be taken from USB controller chip (e.g. FT232RL).
+
+      Preffered serial data format is 9600,N,8,1 (9600 baud rate, no
+      parity, 8 data bits, 1 stop bit). If higher baud rate is desired
+      it should be selected from one of following: 19200, 38400, 57600
+      and 115200. Lower baud rates are generally not used but if need
+      really occurs (e.g. long communication lines), it should be
+      selected among following: 4800, 2400 and 1200.
+
+   Data format
+
+      Data is sent as ASCII whenever this is possible. Binary
+      communication should not be used. If binary data is desirable,
+      hexadecimal representation in ASCII should be used.
+
+      All input terminates with LF (0x0A). Device should execute desired
+      operation only when LF is detected. General format would be
+      {data}<LF> (e.g. 123<LF>). Device must not behave erradicaly even
+      if data without LF is not supported (because of auto-discovery).
+
+      Device should send back identitification of itself when LF without
+      any data is received. Identification should be in format
+      {name} {revision}-{date} (e.g. Elsidi A-0904).
+
+      Interface toward device should be implemented as "pull" operation.
+      Device should avoid sending anything without being requested to.
+      If just general enquiry of state is desired, question mark can be
+      used (e.g. ?<LF>).
+
+      If full command is not received and more than one second passes,
+      device can clear it's buffer and ignore command.
+
+   Auto-discovery
+
+      Auto discovery works by connecting to each COM port at 9600,N,8,1.
+      After sucessfull connection serial line should be cleared and
+      single LF (0x0A) should be sent. Answer should be in format {name}
+      {revision}-{date}<LF> (e.g. "Elsidi A-1012" for device board
+      revision A, manufactured in December, 2010). If desired answer is
+      received, searching can be stopped. If desired answer is not
+      received, search continues with next port. If no desired port is
+      found, search can continue with higher baud rates.
