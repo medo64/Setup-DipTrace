@@ -133,8 +133,8 @@ SERIAL DATA INTERFACE
 
       Interface toward device should be implemented as "pull" operation.
       Device should avoid sending anything without being requested to.
-      If just general enquiry of state is desired, question mark can be
-      used (e.g. ?<LF>).
+      If just general enquiry of state is desired, CR or question mark
+      can be used (e.g. <CR><LF> or ?<LF>).
 
       If full command is not received and more than one second passes,
       device can clear it's buffer and ignore command.
