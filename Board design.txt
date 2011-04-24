@@ -93,6 +93,19 @@ HOLES AND PADS
       3.4 mm / 255 mil (6.477 mm)
 
 
+SMD
+
+   o Whenever there is minimum and maximum width, reference value is at 2/3
+     toward minimum. Formula would be:
+        VALUE = (MIN * 3 + MAX * 2) / 5
+  
+   o Dot is added at 1 millimeter from pin 1 and it has radius of 1 millimeter.
+   
+   o Center X point of pad (in both positive and negative side) is calculated by
+     formula:
+        X = (TOTAL-WIDTH - PAD-WIDTH) / 2 
+
+
 POWER INTERFACE
 
    Boards with serial connection should use 12V as input. USB based
