@@ -10,11 +10,11 @@ Pinout
 |   |  1  |  2 |   3 |   4 |   5 |   6 |   7 |      8 |       9 |      10 |      11 |   | 12       |       13 |  14 |        15 |       16 |   17 |  18 |
 |:-:|:---:|:--:|:---:|:---:|:---:|:---:|:---:|:------:|:-------:|:-------:|:-------:|:-:|:--------:|:--------:|:---:|:---------:|:--------:|:----:|:---:|
 | A | PD  | V+ | IO0 | IO1 | IO2 | IO3 | GND | CAN_D+ | CAN_D-  | I2C_DAT | I2C_CLK |   | UART_TX  | UART_RX  | GND | ICSP_DAT  | ICSP_CLK | KEY1 | GND |
-| B | Vsb | V+ | IO4 | IO5 | IO6 | IO7 | GND | 1WIRE  | SPI_SDO | SPI_SDI | SPI_SCK |   | UART_RTS | UART_CTS | GND | ICSP_MCLR | ICSP_LVP | KEY2 | GND |
+| B | Vin | V+ | IO4 | IO5 | IO6 | IO7 | GND | 1WIRE  | SPI_SDO | SPI_SDI | SPI_SCK |   | UART_RTS | UART_CTS | GND | ICSP_MCLR | ICSP_LVP | KEY2 | GND |
 
 
 * PD :      Presence detect. Must be pulled to GND. This pin is shorter than others.
-* Vsb:      Stand-by voltage between 2V and 5V. Must not be heavily used.
+* Vin:      Charging voltage input. Must be 5V.
 * V+:       Main voltage rail between 2V and 5V.
 * IOx:      Input/output lines. Exact usage depends on application.
 * CAN_Dx:   CAN bus.
