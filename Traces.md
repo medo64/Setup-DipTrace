@@ -20,11 +20,10 @@
 # USB Traces
 
 For routing D+ and D- traces, recommended impedance is 90 Ω (+5/-10 Ω). For
-SS_TX+, SS_TX-, SS_RX+, and SS_RX- recommended impedance is 85 Ω (+/-5 Ω).
+SSTX+, SSTX-, SSRX+, and SSRX- recommended impedance is 85 Ω (+/-5 Ω).
 
-| Manufacturer     | Thickness | Substrate | Dieletric |    Width |  Spacing | Impedance | Usage  |
-|:-----------------|----------:|----------:|----------:|---------:|---------:|----------:|:------:|
-| OshPark, 2-layer |   1.4 mil |    60 mil |       4.5 |  0.40 mm |  0.18 mm | !   121 Ω | D +/-  |
-| OshPark, 2-layer |   1.4 mil |    60 mil |       4.5 |  1.00 mm |  0.18 mm |      93 Ω | D +/-  |
-| OshPark, 4-layer |   1.4 mil |   6.7 mil |      3.69 |  0.40 mm |  0.18 mm |      94 Ω | D +/-  |
-| OshPark, 4-layer |   1.4 mil |   6.7 mil |      3.69 |  0.48 mm |  0.48 mm |      88 Ω | SS +/- |
+| Manufacturer     | Thickness | Substrate | Dieletric |    Width |  Spacing | Impedance | Usage   |
+|:-----------------|----------:|----------:|----------:|---------:|---------:|----------:|:-------:|
+| OshPark, 2-layer |   1.4 mil |    60 mil |       4.5 |  0.40 mm |  0.21 mm |     126 Ω | USB 1.1 |
+| OshPark, 4-layer |   1.4 mil |   6.7 mil |      3.69 |  0.40 mm |  0.18 mm |      94 Ω | USB 2.0 |
+| OshPark, 4-layer |   1.4 mil |   6.7 mil |      3.69 |  0.48 mm |  0.48 mm |      88 Ω | USB 3.0 |
